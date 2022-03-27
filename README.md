@@ -15,7 +15,7 @@ Simple implementation of `git` using ruby.  Starting code and inspiration from T
  
 🗒️ _committed file will have a tree hash for each folder in their path. for example `/lib/grit/object.rb` will be ⏬_
 ```mermaid
-   graph TD;
+   graph LR;
    root:tree-->lib:tree;
    lib:tree-->grit:tree;
    grit:tree-->object.rb:blob;
