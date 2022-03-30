@@ -54,23 +54,18 @@ module GRit
       end
 
       def build_commit(tree:)
-        commit_message_template = <<~TXT
-          # Title
-          #
-          # Body
-        TXT
         commit_message_path = "#{GRit::GRIT_DIRECTORY}/COMMIT_MSG"
-
-        `echo "#{commit_message_template}" > #{commit_message_path}`
         `vim #{commit_message_path} >/dev/tty`
 
         message = File.read commit_message_path
         committer = 'user'
         sha = Digest::SHA1.hexdigest(Time.now.iso8601 + committer)
         object = GRit::Object.new(sha)
+        parent = parent_ref
 
         object.write do |file|
           file.puts "tree #{tree}"
+          file.puts "parent #{parent}" unless parent.nil?
           file.puts "author #{committer}"
           file.puts
           file.puts message
@@ -79,9 +74,16 @@ module GRit
         sha
       end
 
-      def update_ref(commit_sha:)
-        current_branch = File.read("#{GRit::GRIT_DIRECTORY}/HEAD").strip.split.last
+      def current_branch
+        File.read("#{GRit::GRIT_DIRECTORY}/HEAD").strip.split.last
+      end
 
+      def parent_ref
+        path = "#{GRit::GRIT_DIRECTORY}/#{current_branch}"
+        File.read(path) if File.exist? path
+      end
+
+      def update_ref(commit_sha:)
         File.open("#{GRit::GRIT_DIRECTORY}/#{current_branch}", 'w') do |file|
           file.print commit_sha
         end

@@ -25,6 +25,8 @@ module GRit
       end
 
       def call_init
+        return puts 'GRit is already initialized' if Dir.exist? GRit::GRIT_DIRECTORY
+
         Dir.mkdir GRit::GRIT_DIRECTORY
         build_objects_directory
         build_refs_directory
