@@ -7,11 +7,11 @@ require_relative 'object'
 module GRit
   class Commit
     class << self
-      def call_commit
+      def call_commit(message)
         return 'Nothing to commit' if index_files.count.zero?
 
         root_sha = build_tree('root', index_tree)
-        commit_sha = build_commit(tree: root_sha)
+        commit_sha = build_commit(tree: root_sha, message: message)
         update_ref(commit_sha: commit_sha)
         clear_index
       end
@@ -53,11 +53,7 @@ module GRit
         sha
       end
 
-      def build_commit(tree:)
-        commit_message_path = "#{GRit::GRIT_DIRECTORY}/COMMIT_MSG"
-        `vim #{commit_message_path} >/dev/tty`
-
-        message = File.read commit_message_path
+      def build_commit(tree:, message:)
         committer = 'user'
         sha = Digest::SHA1.hexdigest(Time.now.iso8601 + committer)
         object = GRit::Object.new(sha)

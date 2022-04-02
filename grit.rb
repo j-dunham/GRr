@@ -19,8 +19,8 @@ class CLI < Thor
   end
 
   desc 'commit', 'commit staged files'
-  def commit
-    GRit::Commit.call_commit
+  def commit(message)
+    GRit::Commit.call_commit(message)
   end
 end
 
