@@ -1,10 +1,13 @@
+#!/usr/bin/env ruby
 # frozen_string_literal: true
+
+require 'thor'
 
 require_relative './lib/grit/add'
 require_relative './lib/grit/init'
 require_relative './lib/grit/commit'
 
-class Grit < Thor
+class CLI < Thor
   desc 'init', 'initialize GRit directories/files'
   def init
     GRit::Init.call_init
@@ -20,3 +23,5 @@ class Grit < Thor
     GRit::Commit.call_commit
   end
 end
+
+CLI.start
