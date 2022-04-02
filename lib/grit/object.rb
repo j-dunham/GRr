@@ -3,7 +3,7 @@
 require 'fileutils'
 
 module GRit
-  GRIT_DIRECTORY = "#{Dir.pwd}/,grit"
+  GRIT_DIRECTORY = "#{Dir.pwd}/.grit"
   OBJECTS_DIRECTORY = "#{GRIT_DIRECTORY}/objects"
   REFS_DIRECTORY = "#{GRIT_DIRECTORY}/refs"
   INDEX_PATH = "#{GRIT_DIRECTORY}/index"
