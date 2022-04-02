@@ -7,7 +7,7 @@ require_relative 'object'
 module GRit
   class Commit
     class << self
-      def call_commit(message)
+      def call(message)
         return 'Nothing to commit' if index_files.count.zero?
 
         root_sha = build_tree('root', index_tree)

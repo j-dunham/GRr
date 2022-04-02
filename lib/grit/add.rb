@@ -8,7 +8,7 @@ require_relative 'object'
 module GRit
   class Add
     class << self
-      def call_add(path)
+      def call(path)
         return puts 'Not an GRit project' unless Dir.exist? GRit::GRIT_DIRECTORY
 
         file_contents = File.read path
