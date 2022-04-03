@@ -7,27 +7,33 @@ require_relative './lib/grit/add'
 require_relative './lib/grit/init'
 require_relative './lib/grit/commit'
 require_relative './lib/grit/log'
+require_relative './lib/grit/checkout'
 
 module GRit
   class CLI < Thor
     desc 'init', 'initialize GRit directories/files'
     def init
-      Init.call
+      Command::Init.call
     end
 
     desc 'add', 'adds file to staging'
     def add(path)
-      Add.call(path)
+      Command::Add.call(path)
     end
 
     desc 'commit', 'commit staged files'
     def commit(message)
-      Commit.call(message)
+      Command::Commit.call(message)
     end
 
     desc 'log', 'show commit history'
     def log
-      Log.call
+      Command::Log.call
+    end
+
+    desc 'checkout', 'checkout a commit'
+    def checkout(sha)
+      Command::CheckOut.call(sha)
     end
   end
 end
