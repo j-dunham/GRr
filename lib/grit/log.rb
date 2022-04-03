@@ -1,23 +1,44 @@
 # frozen_string_literal: true
 
+require 'rainbow'
+
 module GRit
   class Log
     class << self
       def call
-        show_commit(current_commit_sha)
-      end
-
-      def show_commit(sha)
-        dir = sha[0..1]
-        file = sha[2..-1]
-        File.open(File.join(OBJECTS_DIRECTORY, dir, file)) do |f|
-          puts f.read
+        commits&.each do |commit|
+          puts "#{Rainbow(commit[0].split[1].strip).yellow} #{commit[-1]}"
         end
       end
 
-      def current_commit_sha
+      def commits(sha: root_sha, arr: [])
+        return if sha.nil?
+
+        commit = entry(sha)
+        arr << commit
+        return arr if parent_sha(commit).nil?
+
+        commits(arr: arr, sha: parent_sha(commit))
+      end
+
+      def entry(sha)
+        path = File.join(OBJECTS_DIRECTORY, sha[0..1], sha[2..-1])
+        File.readlines(path)
+      end
+
+      def root_sha
         ref_path = File.read(File.join(GRIT_DIRECTORY, 'HEAD'))
-        File.read(File.join(GRIT_DIRECTORY, ref_path.split(':')[1].strip))
+        sha_path = File.join(GRIT_DIRECTORY, ref_path.split(':')[1].strip)
+        return unless File.exist? sha_path
+
+        File.read(sha_path)
+      end
+
+      def parent_sha(commit)
+        parent_line = commit.find { |line| line.start_with? 'parent' }
+        return if parent_line.nil?
+
+        parent_line.split[1]
       end
     end
   end
