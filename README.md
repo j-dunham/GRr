@@ -1,7 +1,14 @@
 # *GRit*
 Simple implementation of `git` using ruby.  Starting code and inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
 
-## Files
+## Supported Commands
+- init
+- add
+- log
+- commit
+- checkout
+
+## Files Overview
 - `.grit/index`
   - contains the hash locations for staged files
 - `.grit/HEAD`

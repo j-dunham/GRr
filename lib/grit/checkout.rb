@@ -7,21 +7,21 @@ module GRit
   module Command
     class CheckOut
       class << self
-        def call(sha)
-          # TODO: find correct commit
+        def call(sha:)
+          sha ||= last_commit_object
           puts "checking out commit: #{Rainbow(sha).blue}"
-          commit_object.each do |line|
+
+          read_object(sha).each do |line|
             restore_file(line, '.')
           end
         end
 
-        def commit_object
+        def last_commit_object
           ref_path = File.read(File.join(GRIT_DIRECTORY, 'HEAD'))
           sha_path = File.join(GRIT_DIRECTORY, ref_path.split(':')[1].strip)
 
           commit_sha = File.read(sha_path)
-          commit_tree_sha = read_object(commit_sha)[0].split[1]
-          read_object(commit_tree_sha)
+          read_object(commit_sha)[0].split[1]
         end
 
         def restore_file(ref, path)

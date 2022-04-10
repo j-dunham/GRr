@@ -33,7 +33,8 @@ module GRit
 
     desc 'checkout', 'checkout a commit'
     def checkout(sha)
-      Command::CheckOut.call(sha)
+      sha ||= nil
+      Command::CheckOut.call(sha: sha)
     end
   end
 end
