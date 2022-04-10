@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 require 'zlib'
+require 'rainbow'
 
 module GRit
   module Command
     class CheckOut
       class << self
         def call(sha)
-          puts "checking out #{sha}"
+          # TODO: find correct commit
+          puts "checking out commit: #{Rainbow(sha).blue}"
           commit_object.each do |line|
-            type, sha, file_name = line.split
-            restore_file(sha, "./tmp/#{file_name}") if type == 'blob'
+            restore_file(line, '.')
           end
         end
 
@@ -23,17 +24,28 @@ module GRit
           read_object(commit_tree_sha)
         end
 
-        def restore_file(sha, path)
-          File.open(path, 'w') do |file|
-            blob = read_blob(sha)
+        def restore_file(ref, path)
+          type, sha, file_name = ref.split
+          path = File.join(path, file_name)
+          return write_blob(path, sha) if type == 'blob'
 
-            file.write(Zlib::Inflate.inflate(blob))
+          file_refs = read_object(sha)
+          file_refs.each do |file_ref|
+            restore_file(file_ref, path)
           end
         end
 
         def read_object(sha)
           path = File.join(OBJECTS_DIRECTORY, sha_path(sha))
           File.readlines(path)
+        end
+
+        def write_blob(path, sha)
+          puts "restoring file #{Rainbow(path).green} "
+          File.open(path, 'w') do |file|
+            blob = read_blob(sha)
+            file.write(Zlib::Inflate.inflate(blob))
+          end
         end
 
         def read_blob(sha)
