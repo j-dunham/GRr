@@ -31,10 +31,15 @@ module GRit
       Command::Log.call
     end
 
+    method_options last: :boolean, b: :string
     desc 'checkout', 'checkout a commit'
-    def checkout(sha)
-      sha ||= nil
-      Command::CheckOut.call(sha: sha)
+    def checkout(sha = nil)
+      return Command::CheckOut.call(sha: nil, branch: options.b) if options.b
+
+      sha = Command::CheckOut.last_commit_object if options.last
+      return say 'No commit sha provided..', :red if sha.nil?
+
+      Command::CheckOut.call(sha: sha, branch: nil)
     end
   end
 end

@@ -7,8 +7,24 @@ module GRit
   module Command
     class CheckOut
       class << self
-        def call(sha:)
-          sha ||= last_commit_object
+        def call(sha:, branch: nil)
+          checkout_commit(sha) unless sha.nil?
+
+          checkout_new_branch(branch) unless branch.nil?
+        end
+
+        def checkout_new_branch(branch)
+          puts "creating branch: #{Rainbow(branch).yellow}"
+          branch_path = File.join('refs', 'heads', branch)
+          ref_path = File.join(GRIT_DIRECTORY, branch_path)
+          head_path = File.join(GRIT_DIRECTORY, 'HEAD')
+
+          File.open(ref_path, 'w') { |file| file.print current_commit_sha }
+
+          File.open(head_path, 'w') { |file| file.puts "ref: #{branch_path}" }
+        end
+
+        def checkout_commit(sha)
           puts "checking out commit: #{Rainbow(sha).blue}"
 
           read_object(sha).each do |line|
@@ -17,11 +33,13 @@ module GRit
         end
 
         def last_commit_object
-          ref_path = File.read(File.join(GRIT_DIRECTORY, 'HEAD'))
-          sha_path = File.join(GRIT_DIRECTORY, ref_path.split(':')[1].strip)
+          read_object(current_commit_sha)[0].split[1]
+        end
 
-          commit_sha = File.read(sha_path)
-          read_object(commit_sha)[0].split[1]
+        def current_commit_sha
+          ref_path = File.read(File.join(GRIT_DIRECTORY, 'HEAD'))
+          branch_path = File.join(GRIT_DIRECTORY, ref_path.split(':')[1].strip)
+          File.read(branch_path)
         end
 
         def restore_file(ref, path)
