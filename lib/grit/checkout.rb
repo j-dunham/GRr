@@ -7,8 +7,9 @@ module GRit
   module Command
     class CheckOut
       class << self
-        def call(sha:, branch: nil)
-          checkout_commit(sha) unless sha.nil?
+        def call(ref:, branch: nil)
+          return checkout_branch(ref) if branch? ref
+          return checkout_commit(ref) unless ref.nil?
 
           checkout_new_branch(branch) unless branch.nil?
         end
@@ -17,11 +18,22 @@ module GRit
           puts "creating branch: #{Rainbow(branch).yellow}"
           branch_path = File.join('refs', 'heads', branch)
           ref_path = File.join(GRIT_DIRECTORY, branch_path)
-          head_path = File.join(GRIT_DIRECTORY, 'HEAD')
 
-          File.open(ref_path, 'w') { |file| file.print current_commit_sha }
+          File.open(ref_path, 'w') { |f| f.print current_commit_sha }
+          write_head(branch)
+        end
 
-          File.open(head_path, 'w') { |file| file.puts "ref: #{branch_path}" }
+        def checkout_branch(branch)
+          puts "checking out branch: #{Rainbow(branch).blue}"
+
+          branch_path = File.join(REFS_DIRECTORY, 'heads', branch)
+          commit_sha = File.read(branch_path)
+          tree_sha = read_object(commit_sha)[0].split[1]
+
+          read_object(tree_sha).each do |line|
+            restore_file(line, '.')
+          end
+          write_head(branch)
         end
 
         def checkout_commit(sha)
@@ -73,6 +85,18 @@ module GRit
 
         def sha_path(sha)
           File.join(sha[0..1], sha[2..-1])
+        end
+
+        def branch?(branch)
+          return if branch.nil?
+
+          File.exist? File.join(REFS_DIRECTORY, 'heads', branch)
+        end
+
+        def write_head(branch)
+          File.open(File.join(GRIT_DIRECTORY, 'HEAD'), 'w') do |f|
+            f.puts "ref: refs/heads/#{branch}"
+          end
         end
       end
     end

@@ -32,14 +32,14 @@ module GRit
     end
 
     method_options last: :boolean, b: :string
-    desc 'checkout', 'checkout a commit'
-    def checkout(sha = nil)
-      return Command::CheckOut.call(sha: nil, branch: options.b) if options.b
+    desc 'checkout', 'checkout a commit sha or branch'
+    def checkout(ref = nil)
+      return Command::CheckOut.call(ref: nil, branch: options.b) if options.b
 
-      sha = Command::CheckOut.last_commit_object if options.last
-      return say 'No commit sha provided..', :red if sha.nil?
+      ref = Command::CheckOut.last_commit_object if options.last
+      return say 'No reference provided..', :red if ref.nil?
 
-      Command::CheckOut.call(sha: sha, branch: nil)
+      Command::CheckOut.call(ref: ref, branch: nil)
     end
   end
 end
