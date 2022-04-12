@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'thor'
+require 'pry'
 
 require_relative './lib/grit/add'
 require_relative './lib/grit/init'
