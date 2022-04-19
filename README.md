@@ -1,14 +1,14 @@
 <img src="logo.png" alt="drawing" width="200"/>
 A simple implementation of `git` using ruby.  Starting code and inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
 
-## Supported Commands
+## ⌨️ Supported Commands
 - init
 - add
 - log
 - commit
 - checkout
 
-## File Structure Overview
+## 🏗️ File Structure Overview
 - `.grit/index`
   - contains the sha paths for the staged files
 - `.grit/HEAD`
@@ -24,7 +24,7 @@ A simple implementation of `git` using ruby.  Starting code and inspiration from
 
 
  
-🗒️ _committed file will have a tree hash for each folder in their path. for example `/lib/grit/object.rb` will be ⏬_
+_committed file will have a tree hash for each folder in their path. for example `/lib/grit/object.rb` will be ⏬_
 ```mermaid
    graph LR;
    root:tree-->lib:tree;
