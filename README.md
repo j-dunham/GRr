@@ -1,5 +1,5 @@
-# *GRit*
-Simple implementation of `git` using ruby.  Starting code and inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
+<img src="logo.png" alt="drawing" width="200"/>
+A simple implementation of `git` using ruby.  Starting code and inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
 
 ## Supported Commands
 - init
@@ -8,17 +8,21 @@ Simple implementation of `git` using ruby.  Starting code and inspiration from T
 - commit
 - checkout
 
-## Files Overview
+## File Structure Overview
 - `.grit/index`
-  - contains the hash locations for staged files
+  - contains the sha paths for the staged files
 - `.grit/HEAD`
-  - points to current branch
+  - points to current branch path
 - `.grit/refs/heads/BRANCH_NAME`
-  - contains hash of commits
-- `.grit/objects/COMMIT_HASH[0..2]/COMMIT_HASH[2..-1]`
-  - contains commit message and hash for root tree
-- `.grit/objects/TREE_HASH[0..2]/TREE_HASH[2..-1]` 
-  - contains hash for next tree hash or file blob
+  - contains last commit sha
+- `.grit/objects/COMMIT_SHA[0..2]/COMMIT_SHA[2..-1]`
+  - contains commit information
+- `.grit/objects/TREE_SHA[0..2]/TREE_SHA[2..-1]` 
+  - contains next tree or blob sha
+- `.grit/objects/BLOB_SHA[0..2]/BLOB_SHA[2..-1]` 
+  - constains Zlib blob of file
+
+
  
 🗒️ _committed file will have a tree hash for each folder in their path. for example `/lib/grit/object.rb` will be ⏬_
 ```mermaid
