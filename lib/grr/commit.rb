@@ -4,7 +4,7 @@ require 'digest'
 require 'time'
 require_relative 'object'
 
-module GRit
+module GRr
   module Command
     class Commit
       class << self
@@ -18,7 +18,7 @@ module GRit
         end
 
         def index_files
-          File.open(GRit::INDEX_PATH).each_line
+          File.open(GRr::INDEX_PATH).each_line
         end
 
         def index_tree
@@ -39,7 +39,7 @@ module GRit
 
         def build_tree(name, tree)
           sha = Digest::SHA1.hexdigest(Time.now.iso8601 + name)
-          object = GRit::Object.new(sha)
+          object = GRr::Object.new(sha)
           object.write do |file|
             tree.each do |key, value|
               if value.is_a? Hash
@@ -57,7 +57,7 @@ module GRit
         def build_commit(tree:, message:)
           committer = 'user'
           sha = Digest::SHA1.hexdigest(Time.now.iso8601 + committer)
-          object = GRit::Object.new(sha)
+          object = GRr::Object.new(sha)
           parent = parent_ref
 
           object.write do |file|
@@ -72,22 +72,22 @@ module GRit
         end
 
         def current_branch
-          File.read("#{GRit::GRIT_DIRECTORY}/HEAD").strip.split.last
+          File.read("#{GRr::GRR_DIRECTORY}/HEAD").strip.split.last
         end
 
         def parent_ref
-          path = "#{GRit::GRIT_DIRECTORY}/#{current_branch}"
+          path = "#{GRr::GRR_DIRECTORY}/#{current_branch}"
           File.read(path) if File.exist? path
         end
 
         def update_ref(commit_sha:)
-          File.open("#{GRit::GRIT_DIRECTORY}/#{current_branch}", 'w') do |file|
+          File.open("#{GRr::GRR_DIRECTORY}/#{current_branch}", 'w') do |file|
             file.print commit_sha
           end
         end
 
         def clear_index
-          File.truncate GRit::INDEX_PATH, 0
+          File.truncate GRr::INDEX_PATH, 0
         end
       end
     end

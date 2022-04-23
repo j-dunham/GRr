@@ -3,7 +3,7 @@
 require 'zlib'
 require 'rainbow'
 
-module GRit
+module GRr
   module Command
     class CheckOut
       class << self
@@ -17,7 +17,7 @@ module GRit
         def checkout_new_branch(branch)
           puts "creating branch: #{Rainbow(branch).yellow}"
           branch_path = File.join('refs', 'heads', branch)
-          ref_path = File.join(GRIT_DIRECTORY, branch_path)
+          ref_path = File.join(GRR_DIRECTORY, branch_path)
 
           File.open(ref_path, 'w') { |f| f.print current_commit_sha }
           write_head(branch)
@@ -49,8 +49,8 @@ module GRit
         end
 
         def current_commit_sha
-          ref_path = File.read(File.join(GRIT_DIRECTORY, 'HEAD'))
-          branch_path = File.join(GRIT_DIRECTORY, ref_path.split(':')[1].strip)
+          ref_path = File.read(File.join(GRR_DIRECTORY, 'HEAD'))
+          branch_path = File.join(GRR_DIRECTORY, ref_path.split(':')[1].strip)
           File.read(branch_path)
         end
 
@@ -94,7 +94,7 @@ module GRit
         end
 
         def write_head(branch)
-          File.open(File.join(GRIT_DIRECTORY, 'HEAD'), 'w') do |f|
+          File.open(File.join(GRR_DIRECTORY, 'HEAD'), 'w') do |f|
             f.puts "ref: refs/heads/#{branch}"
           end
         end

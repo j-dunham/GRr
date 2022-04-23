@@ -2,7 +2,7 @@
 
 require 'rainbow'
 
-module GRit
+module GRr
   module Command
     class Log
       class << self
@@ -28,8 +28,8 @@ module GRit
         end
 
         def root_sha
-          ref_path = File.read(File.join(GRIT_DIRECTORY, 'HEAD'))
-          sha_path = File.join(GRIT_DIRECTORY, ref_path.split(':')[1].strip)
+          ref_path = File.read(File.join(GRR_DIRECTORY, 'HEAD'))
+          sha_path = File.join(GRR_DIRECTORY, ref_path.split(':')[1].strip)
           return unless File.exist? sha_path
 
           File.read(sha_path)

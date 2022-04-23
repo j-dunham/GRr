@@ -5,17 +5,17 @@ require 'zlib'
 require 'fileutils'
 require_relative 'object'
 
-module GRit
+module GRr
   module Command
     class Add
       class << self
         def call(path)
-          return puts 'Not an GRit project' unless Dir.exist? GRit::GRIT_DIRECTORY
+          return puts 'Not an GRr project' unless Dir.exist? GRr::GRR_DIRECTORY
 
           file_contents = File.read path
           sha = Digest::SHA1.hexdigest file_contents
           blob = Zlib::Deflate.deflate file_contents
-          object_directory = "#{GRit::OBJECTS_DIRECTORY}/#{sha[0..1]}"
+          object_directory = "#{GRr::OBJECTS_DIRECTORY}/#{sha[0..1]}"
           FileUtils.mkdir_p object_directory
           blob_path = "#{object_directory}/#{sha[2..-1]}"
 
@@ -23,7 +23,7 @@ module GRit
             file.print blob
           end
 
-          File.open(GRit::INDEX_PATH, 'a') do |file|
+          File.open(GRr::INDEX_PATH, 'a') do |file|
             file.puts "#{sha} #{path}"
           end
         end

@@ -4,15 +4,15 @@
 require 'thor'
 require 'pry'
 
-require_relative './lib/grit/add'
-require_relative './lib/grit/init'
-require_relative './lib/grit/commit'
-require_relative './lib/grit/log'
-require_relative './lib/grit/checkout'
+require_relative './lib/grr/add'
+require_relative './lib/grr/init'
+require_relative './lib/grr/commit'
+require_relative './lib/grr/log'
+require_relative './lib/grr/checkout'
 
-module GRit
+module GRr
   class CLI < Thor
-    desc 'init', 'initialize GRit directories/files'
+    desc 'init', 'initialize GRr directories/files'
     def init
       Command::Init.call
     end
@@ -45,4 +45,4 @@ module GRit
   end
 end
 
-GRit::CLI.start
+GRr::CLI.start

@@ -2,11 +2,11 @@
 
 require 'fileutils'
 
-module GRit
-  GRIT_DIRECTORY = "#{Dir.pwd}/.grit"
-  OBJECTS_DIRECTORY = "#{GRIT_DIRECTORY}/objects"
-  REFS_DIRECTORY = "#{GRIT_DIRECTORY}/refs"
-  INDEX_PATH = "#{GRIT_DIRECTORY}/index"
+module GRr
+  GRR_DIRECTORY = "#{Dir.pwd}/.grr"
+  OBJECTS_DIRECTORY = "#{GRR_DIRECTORY}/objects"
+  REFS_DIRECTORY = "#{GRR_DIRECTORY}/refs"
+  INDEX_PATH = "#{GRR_DIRECTORY}/index"
 
   class Object
     attr_reader :sha
