@@ -1,5 +1,6 @@
 <img src="logo.png" alt="drawing" width="200"/>
-A simple implementation of `git` using ruby.  Inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
+
+A simple implementation of __git__ using ruby.  Inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
 
 ## ⌨️ Supported Commands
 - init
@@ -32,5 +33,5 @@ _committed file will have a tree hash for each folder in their path. for example
    grit:tree-->object.rb:blob;
 ```     
  
-## Additional Resources
+## 💭 Similar Projects
 - Python implementation tutorial [link](https://www.leshenko.net/p/ugit/#) 
