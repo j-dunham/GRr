@@ -1,5 +1,5 @@
 <img src="logo.png" alt="drawing" width="200"/>
-A simple implementation of `git` using ruby.  Starting code and inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
+A simple implementation of `git` using ruby.  Inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
 
 ## ⌨️ Supported Commands
 - init
