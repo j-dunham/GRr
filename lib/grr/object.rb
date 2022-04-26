@@ -3,7 +3,7 @@
 require 'fileutils'
 
 module GRr
-  GRR_DIRECTORY = "#{Dir.pwd}/.grr"
+  GRR_DIRECTORY = ENV['GRR_HOME'] || "#{Dir.pwd}/.grr"
   OBJECTS_DIRECTORY = "#{GRR_DIRECTORY}/objects"
   REFS_DIRECTORY = "#{GRR_DIRECTORY}/refs"
   INDEX_PATH = "#{GRR_DIRECTORY}/index"

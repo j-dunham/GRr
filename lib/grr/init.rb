@@ -10,7 +10,7 @@ module GRr
         def call
           return puts 'GRr is already initialized' if Dir.exist? GRr::GRR_DIRECTORY
 
-          Dir.mkdir GRr::GRR_DIRECTORY
+          FileUtils.mkdir_p GRr::GRR_DIRECTORY
           build_objects_directory
           build_refs_directory
           build_head
