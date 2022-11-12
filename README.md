@@ -1,6 +1,7 @@
 <img src="logo.png" alt="drawing" width="200"/>
 
-A simple implementation of __git__ using ruby.  Inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
+# Git Reimagined in Ruby.
+Inspiration from ThoughtBot blog article [Rebuilding Git in Ruby](https://thoughtbot.com/blog/rebuilding-git-in-ruby)
 
 ## ⌨️ Supported Commands
 - init
