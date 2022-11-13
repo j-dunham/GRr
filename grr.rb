@@ -9,6 +9,7 @@ require_relative './lib/grr/init'
 require_relative './lib/grr/commit'
 require_relative './lib/grr/log'
 require_relative './lib/grr/checkout'
+require_relative './lib/grr/hash_object'
 
 module GRr
   class CLI < Thor
@@ -41,6 +42,12 @@ module GRr
       return say 'No reference provided..', :red if ref.nil?
 
       Command::CheckOut.call(ref: ref, branch: nil)
+    end
+
+    desc 'hash-object', 'reports the GRr object id of a file and optionally writes it to the object database'
+    options w: :boolean
+    def hash_object(path)
+      Command::HashObject.call(path, options[:w])
     end
   end
 end

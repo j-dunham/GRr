@@ -84,7 +84,7 @@ module GRr
         end
 
         def sha_path(sha)
-          File.join(sha[0..1], sha[2..-1])
+          File.join(sha[0..1], sha[2..])
         end
 
         def branch?(branch)

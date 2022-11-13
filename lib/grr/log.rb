@@ -23,7 +23,7 @@ module GRr
         end
 
         def entry(sha)
-          path = File.join(OBJECTS_DIRECTORY, sha[0..1], sha[2..-1])
+          path = File.join(OBJECTS_DIRECTORY, sha[0..1], sha[2..])
           File.readlines(path)
         end
 

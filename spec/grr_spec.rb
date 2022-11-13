@@ -7,7 +7,7 @@ RSpec.describe GRr::CLI do
   let(:cli) { GRr::CLI.new }
 
   before do
-    FileUtils.rm_rf ENV['GRR_HOME']
+    FileUtils.rm_rf ENV.fetch('GRR_HOME', nil)
   end
 
   describe 'when calling init' do
