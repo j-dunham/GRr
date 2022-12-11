@@ -40,6 +40,7 @@ RSpec.describe GRr::Command::CheckOut do
 
     before do
       allow(GRr::Command::CheckOut).to receive(:current_commit_sha).and_return(commit_sha)
+      allow(File).to receive(:read).with('tmp/.grr/refs/heads/test').and_return('ref: refs/heads/master')
     end
 
     it 'creates new branch' do
