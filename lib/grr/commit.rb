@@ -17,10 +17,6 @@ module GRr
           clear_index
         end
 
-        def index_files
-          File.open(GRr::INDEX_PATH).each_line
-        end
-
         def index_tree
           index_files.each_with_object({}) do |line, obj|
             sha, path = line.split
@@ -69,6 +65,12 @@ module GRr
           end
 
           sha
+        end
+
+        private
+
+        def index_files
+          File.open(GRr::INDEX_PATH).each_line
         end
 
         def current_branch
