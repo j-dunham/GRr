@@ -1,3 +1,5 @@
+[![ci](https://github.com/j-dunham/GRr/actions/workflows/ci.yml/badge.svg)](https://github.com/j-dunham/GRr/actions/workflows/ci.yml)
+
 <img src="logo.png" alt="drawing" width="200"/>
 
 # Git Reimagined in Ruby.
