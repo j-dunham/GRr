@@ -48,6 +48,8 @@ module GRr
           read_object(current_commit_sha)[0].split[1]
         end
 
+        private
+
         def current_commit_sha
           ref_path = File.read(File.join(GRR_DIRECTORY, 'HEAD'))
           branch_path = File.join(GRR_DIRECTORY, ref_path.split(':')[1].strip)
