@@ -40,7 +40,6 @@ RSpec.describe GRr::Command::CheckOut do
 
     before do
       allow(GRr::Command::CheckOut).to receive(:current_commit_sha).and_return(commit_sha)
-      allow(File).to receive(:read).with('tmp/.grr/refs/heads/test').and_return('ref: refs/heads/master')
     end
 
     it 'creates new branch' do
@@ -52,6 +51,7 @@ RSpec.describe GRr::Command::CheckOut do
     end
 
     it 'updates HEAD to point to branch' do
+      allow(File).to receive(:open).with('tmp/.grr/refs/heads/test', 'w').and_return('ref: refs/heads/master')
       expect(GRr::Command::CheckOut).to receive(:write_head).with(branch)
       GRr::Command::CheckOut.checkout_new_branch(branch)
     end
@@ -62,6 +62,7 @@ RSpec.describe GRr::Command::CheckOut do
     let(:tree_sha) { '5b4c3b70ed776803408939a6652386a0b0506d43' }
 
     before do
+      allow(File).to receive(:read).with('tmp/.grr/refs/heads/test').and_return(tree_sha)
       allow(GRr::Command::CheckOut).to receive(:read_object).with(tree_sha).and_return(
         ['tree 5b4c3b70ed776803408939a6652386a0b0506d43 README.md']
       )

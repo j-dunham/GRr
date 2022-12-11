@@ -10,6 +10,10 @@ RSpec.describe GRr::CLI do
     FileUtils.rm_rf ENV.fetch('GRR_HOME', nil)
   end
 
+  after do
+    FileUtils.rm_rf ENV.fetch('GRR_HOME', nil)
+  end
+
   describe 'when calling init' do
     it 'prints to stdout' do
       expect { cli.init }.to output("GRR initialized!\n").to_stdout
