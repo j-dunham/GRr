@@ -20,6 +20,6 @@ jobs:
         ruby-version: '2.7'
         bundler-cache: true
     - name: Run linting
-      run: rubocop
+      run:  bundle exec rubocop
     - name: Run tests
-      run: spec
+      run: bundle exec spec
