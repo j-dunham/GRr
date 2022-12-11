@@ -50,9 +50,9 @@ RSpec.describe GRr::Command::Commit do
     end
 
     it 'returns a sha' do
-      allow(Time).to receive(:now).and_return(Time.parse('2019-01-01 00:00:00'))
+      allow(Time).to receive(:now).and_return(Time.parse('2022-12-11 11:33:08 -0500'))
 
-      expect(GRr::Command::Commit.build_tree('root', tree)).to eq('827b1ca08965dac7a94b631b9473e8445a4ec904')
+      expect(GRr::Command::Commit.build_tree('root', tree)).to eq('ff8e109bec96c65f117bc8b17f184be1e1a4ec69')
     end
   end
 end
