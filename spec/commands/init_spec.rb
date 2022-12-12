@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../lib/grr/commands/init'
+
 RSpec.describe GRr::Command::Init do
   describe '.call' do
     after do

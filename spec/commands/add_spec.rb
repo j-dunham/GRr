@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/grr/commands/add'
+require_relative '../../lib/grr/commands/add'
 
 RSpec.describe GRr::Command::Add do
   describe '.call' do

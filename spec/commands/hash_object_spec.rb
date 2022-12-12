@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/grr/commands/hash_object'
+require_relative '../../lib/grr/commands/hash_object'
 
 RSpec.describe GRr::Command::HashObject do
   describe '.hash_object' do

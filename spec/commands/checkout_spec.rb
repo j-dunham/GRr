@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/grr/commands/checkout'
+require_relative '../../lib/grr/commands/checkout'
 
 RSpec.describe GRr::Command::CheckOut do
   describe '.call' do
