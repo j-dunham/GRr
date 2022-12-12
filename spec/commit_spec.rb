@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/grr/commit'
+require_relative '../lib/grr/commands/commit'
 
 RSpec.describe GRr::Command::Commit do
   describe '.index_tree' do

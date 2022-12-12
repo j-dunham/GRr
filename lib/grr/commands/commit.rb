@@ -2,7 +2,7 @@
 
 require 'digest'
 require 'time'
-require_relative 'object'
+require_relative '../models/object'
 
 module GRr
   module Command

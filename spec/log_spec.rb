@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative('../lib/grr/log')
+require_relative('../lib/grr/commands/log')
 
 RSpec.describe GRr::Command::Log do
   let(:commit_message) do
