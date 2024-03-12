@@ -90,7 +90,7 @@ module GRr
         end
 
         def branch?(branch)
-          return if branch.nil?
+          return false if branch.nil?
 
           File.exist? File.join(REFS_DIRECTORY, 'heads', branch)
         end

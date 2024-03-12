@@ -4,12 +4,12 @@
 require 'thor'
 require 'pry'
 
-require_relative './lib/grr/commands/add'
-require_relative './lib/grr/commands/init'
-require_relative './lib/grr/commands/commit'
-require_relative './lib/grr/commands/log'
-require_relative './lib/grr/commands/checkout'
-require_relative './lib/grr/commands/hash_object'
+require_relative 'lib/grr/commands/add'
+require_relative 'lib/grr/commands/init'
+require_relative 'lib/grr/commands/commit'
+require_relative 'lib/grr/commands/log'
+require_relative 'lib/grr/commands/checkout'
+require_relative 'lib/grr/commands/hash_object'
 
 module GRr
   class CLI < Thor
